@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\Handlers\IExceptionHandler.cs" />
+    <Compile Include="Contracts\IConversationManager.cs" />
+    <Compile Include="Contracts\ILogger.cs" />
+    <Compile Include="Contracts\Readers\ITokenReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
