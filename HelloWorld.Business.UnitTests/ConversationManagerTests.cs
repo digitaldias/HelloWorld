@@ -22,6 +22,20 @@ namespace HelloWorld.Business.UnitTests
             AutoMock.Container.Inject<IExceptionHandler>(new ExceptionHandler(AutoMock.Get<ILogger>()));            
         }
 
+        [Fact]
+        public void RequestGreeting_WhenTokenReaderThrowsException_ReturnsDefaultGreeting()
+        {
+            // Arrange
+            var someException = SomeException;
+            GetMockFor<ITokenReader>().Setup(reader => reader.GetGreeting()).Throws(someException);
+
+            // Act
+            var result = Instance.RequestGreeting();
+
+            // Assert
+            result.ShouldEqual(Instance.DefaultGreeting);
+        }
+
 
         [Fact]
         public void RequestGreeting_WhenCalled_ReturnsGreeting()
@@ -35,21 +49,6 @@ namespace HelloWorld.Business.UnitTests
 
             // Assert
             result.ShouldEqual(greeting);
-        }
-
-
-        [Fact]
-        public void RequestGreeting_TokenReaderThrowsException_TheExceptionIsLogged()
-        {
-            // Arrange            
-            var someException = SomeException;
-            GetMockFor<ITokenReader>().Setup(reader => reader.GetGreeting()).Throws(someException);
-
-            // Act
-            Instance.RequestGreeting();
-
-            // Assert
-            GetMockFor<ILogger>().Verify(logger => logger.LogException(someException), Times.Once());
         }
 
 

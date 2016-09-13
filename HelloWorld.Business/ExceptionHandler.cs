@@ -17,13 +17,17 @@ namespace HelloWorld.Business
 
         public TResult Run<TResult>(Func<TResult> unsafeFunction)
         {
+            if (unsafeFunction == null)
+                return default(TResult);
+
             try
             {
                 return unsafeFunction.Invoke();
             }
             catch(Exception ex)
             {
-                _logger.LogException(ex);
+                if(_logger != null)
+                    _logger.LogException(ex);
             }
             return default(TResult);
         }

@@ -1,7 +1,6 @@
-﻿using System;
-using HelloWorld.Domain.Contracts;
-using HelloWorld.Domain.Contracts.Readers;
+﻿using HelloWorld.Domain.Contracts;
 using HelloWorld.Domain.Contracts.Handlers;
+using HelloWorld.Domain.Contracts.Readers;
 
 namespace HelloWorld.Business
 {
@@ -18,9 +17,17 @@ namespace HelloWorld.Business
         }
 
 
+        public string DefaultGreeting { get { return "Hello World"; } }
+
+
         public string RequestGreeting()
         {
-            return _exceptionHandler.Run(() => _tokenReader.GetGreeting());            
+            var greeting = _exceptionHandler.Run(() => _tokenReader.GetGreeting());
+
+            if (!string.IsNullOrEmpty(greeting))
+                return greeting;
+
+            return DefaultGreeting;
         }
     }
 }
