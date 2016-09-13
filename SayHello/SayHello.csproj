@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="StructureMap, Version=4.3.0.449, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StructureMap.4.4.0\lib\net45\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,11 +47,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DependencyInversion\RuntimeRegistry.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HelloWorld.Business\HelloWorld.Business.csproj">
+      <Project>{5000e871-4025-42c4-8e6b-cd2b74b68600}</Project>
+      <Name>HelloWorld.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HelloWorld.Data\HelloWorld.Data.csproj">
+      <Project>{1d589d62-3729-4478-a599-04d386d4bca9}</Project>
+      <Name>HelloWorld.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HelloWorld.Domain\HelloWorld.Domain.csproj">
+      <Project>{91DB3811-2502-4352-ADFB-1A07E8EC87CB}</Project>
+      <Name>HelloWorld.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
