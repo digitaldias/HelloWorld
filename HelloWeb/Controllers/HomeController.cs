@@ -1,34 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using HelloWorld.Domain.Contracts;
+using System.Web.Mvc;
 
 namespace HelloWeb.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public ActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
+            ViewBag.Message = MvcApplication
+                .DependencyResolver
+                .GetInstance<IConversationManager>()
+                .RequestGreeting();
 
             return View();
         }
 
-        public IActionResult Error()
+        public ActionResult About()
         {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
             return View();
         }
     }
