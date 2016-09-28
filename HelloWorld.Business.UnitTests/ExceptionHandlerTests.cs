@@ -91,6 +91,38 @@ namespace HelloWorld.Business.UnitTests
         }
 
 
+        [Fact]
+        public async Task RunAsync_FunctionRunsWithoutError_ReturnsResultOfFunction()
+        {
+            // Arrange
+            Func<Task<bool>> goodFunction = async () => {                
+                return await Task.FromResult(true);
+            };
+
+            // Act
+            var result = await Instance.RunAsync(goodFunction);
+
+            // Assert
+            result.ShouldEqual(true);
+        }
+
+
+        [Fact]
+        public async Task RunAsync_FunctionThrowsException_ResultIsDefaultReturnType()
+        {
+            // Arrange
+            Func<Task<bool>> badFunction = async () => {
+                throw new Exception("I'm really bad");
+                await Task.FromResult(true);
+            };
+            // Act
+            var result = await Instance.RunAsync(badFunction);
+
+            // Assert
+            result.ShouldBeFalse();
+        }
+
+
         private Exception RandomException
         {
             get { return new Exception(Guid.NewGuid().ToString()); }

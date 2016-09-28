@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Threading.Tasks;
 
 namespace HelloWorld.Domain.Contracts
 {

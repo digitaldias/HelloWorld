@@ -1,6 +1,7 @@
-﻿using System;
+﻿using HelloWorld.Domain.Contracts;
 using HelloWorld.Domain.Contracts.Handlers;
-using HelloWorld.Domain.Contracts;
+using System;
+using System.Threading.Tasks;
 
 namespace HelloWorld.Business
 {
@@ -28,6 +29,20 @@ namespace HelloWorld.Business
             {
                 if(_logger != null)
                     _logger.LogException(ex);
+            }
+            return default(TResult);
+        }
+
+
+        public async Task<TResult> RunAsync<TResult>(Func<Task<TResult>> unsafeTask)
+        {
+            try
+            {
+                return await unsafeTask.Invoke();
+            }
+            catch(Exception ex)
+            {
+                _logger.LogException(ex);
             }
             return default(TResult);
         }
