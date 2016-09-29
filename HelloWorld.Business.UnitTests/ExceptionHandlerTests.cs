@@ -112,8 +112,8 @@ namespace HelloWorld.Business.UnitTests
         {
             // Arrange
             Func<Task<bool>> badFunction = async () => {
+                await Task.FromResult(false);
                 throw new Exception("I'm really bad");
-                await Task.FromResult(true);
             };
             // Act
             var result = await Instance.RunAsync(badFunction);
